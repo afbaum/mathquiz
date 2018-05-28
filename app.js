@@ -1,20 +1,19 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
 app.set('view engine', 'pug');
 
-app.get('/',(req, res) => {
-  res.render('index');
-});
+const routes = require('./routes');
+const quizRoutes = require('./routes/quiz');
 
-app.get('/problem', (req, res) => {
-  res.render('problem', {prompt: "What is 2 + 2", hint: 'count two fingers on each hand'});
-});
-
-app.get('/welcome',(req, res) => {
-  res.render('welcome');
-});
+app.use(routes);
+app.use('/quiz', quizRoutes);
 
 app.listen(3000, () => {
   console.log('Math Quiz is running on localhost:3000')
