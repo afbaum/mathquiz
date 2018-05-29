@@ -1,6 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+
+//mongodb connection
+mongoose.connect('mongodb://admin:admin@ds237660.mlab.com:37660/mathquiz');
+const db = mongoose.connection;
+//mongo error
+db.on('error', console.error.bind(console, 'connection error:'));
 
 const app = express();
 
